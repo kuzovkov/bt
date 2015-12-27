@@ -11,6 +11,7 @@ HotKeySet ( "!m", "Capture_tool_GetMousePoint" )
 HotKeySet ( "!p", "Capture_tool_GetPixelColor" )
 HotKeySet ( "!w", "Capture_tool_win_size" )
 HotKeySet ( "!a", "Capture_tool_assign_win" )
+HotKeySet ( "!k", "Capture_tool_WinKill" )
 
 
 Global $hSelection_GUI_1
@@ -22,6 +23,7 @@ Global $CaptureHelp = @CR & "Список горячих клавиш: " _
 			   & @CR & "ALT+m: определение координат мыши" _
 			   & @CR & "ALT+p: определение цвета пикселя под указателем мыши" _
 			   & @CR & "ALT+w: определение положения и размеров окна" _
+			   & @CR & "ALT+k: принудительное закрытие окна (рабочего или текущего)" _
 			   & @CR & "ALT+a: назначить активное окно рабочим"
  
 ;скриншот выделенной области экрана и запись его в файл			   
@@ -94,7 +96,7 @@ Func Capture_tool_GetMousePoint()
 	Local $mouse_coord_mode = IniRead($INI_FILE,"capture_image", "MouseCoordMode", 2)
 	AutoItSetOption ( "MouseCoordMode", $mouse_coord_mode )
 	$mouse = MouseGetPos()
-	$stringPos = "MouseClick("& $mouse[0] & "," & $mouse[1] & ",3)"
+	$stringPos = "MouseClick('left',"& $mouse[0] & "," & $mouse[1] & ",3)"
 	ClipPut($stringPos)
 	MsgBox(0, $ToolName, "Код для клика мыши в точке " & $mouse[0] & "," & $mouse[1] & " помещен в буфер обмена")
    
@@ -175,5 +177,14 @@ Func Capture_tool_assign_win()
 	Local $answer = MsgBox(1, $ToolName, "Установить рабочим окно: '" & $win_title & "'?")
 	If $answer == 1 Then
 		IniWrite($INI_FILE,"capture_image", "win_name", $win_title)
+	EndIf
+EndFunc
+
+;принудительное закрытие окна
+Func Capture_tool_WinKill()
+	Local $win_name = IniRead($INI_FILE,"capture_image", "win_name", WinGetTitle(""))
+	Local $answer = MsgBox(1, $ToolName, "Закрыть окно принудительно?: '" & $win_name & "'?")
+	If $answer == 1 Then
+		WinKill($win_name)
 	EndIf
 EndFunc

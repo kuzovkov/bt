@@ -1,7 +1,4 @@
 #include <GUIConstants.au3>
-#include <GuiEdit.au3>
-#include <string.au3>
-#Include <date.au3>
 #include "include/tool.capture.au3"
 
 ;############################

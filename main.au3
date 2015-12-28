@@ -6,7 +6,6 @@
 
 Opt("TrayMenuMode",3)   ; Default tray menu items (Script Paused/Exit) will not be shown.
 TraySetIcon("Resources.ico") ;иконка
-HotKeySet ( "!q", "ExitApp" )
 
 ;пункты меню
 ;tools
@@ -14,7 +13,7 @@ $capturehelpitem    = TrayCreateItem("Help")
 ;about, exit
 $aboutitem      = TrayCreateItem("About")
 TrayCreateItem("")
-$exititem       = TrayCreateItem("Exit (alt+q)")
+$exititem       = TrayCreateItem("Exit")
 
 TraySetState()
 AutoItSetOption ( "SendKeyDelay", 200 )
@@ -37,10 +36,6 @@ While 1
     EndSelect
 WEnd
 Exit
-
-Func ExitApp()
-   Exit
-EndFunc
 
 
 

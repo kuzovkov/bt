@@ -15,7 +15,7 @@ HotKeySet ( "!k", "Capture_tool_WinKill" )
 
 
 Global $hSelection_GUI_1
-Global $INI_FILE = "conf.ini" ;файл конфигурации
+Global $INI_FILE = @ScriptDir & "\bt.ini" ;файл конфигурации
 Global $ToolName = "Automation_Tools_v0.1"
 Global $CaptureHelp = @CR & "Список горячих клавиш: " _
 			   & @CR & "ALT+s: показать/скрыть область для захвата изображения" _
@@ -36,17 +36,17 @@ Func Capture_tool_CaptureImage()
    Local $capture_top = $pos[1]
    Local $capture_right = $pos[0] + $pos[2]
    Local $capture_bottom = $pos[1] + $pos[3]
-   Local $ImgCartureDir = IniRead($INI_FILE,"capture_image", "capture_dir", "img") & "/"
    Capture_tool_HideSelectedArea()
-   Local $name = InputBox($ToolName,"Имя файла: ")
-   If @error = 1 Then
+   Local $full_file_name = FileSaveDialog ( "Сохранить файл", "\", "Все файлы (*.*)", 16, "image" )
+
+   If @error Then
 	  Capture_tool_ShowSelectedArea1()
 	  Return
    EndIf
    Local $capture_image_format = IniRead($INI_FILE,"capture_image", "image_format", "bmp")
-   Local $filename = $name & "." & $capture_image_format
-   _ScreenCapture_Capture($ImgCartureDir & $filename,$capture_left,$capture_top,$capture_right,$capture_bottom)
-   MsgBox(0,$ToolName, $filename & " был создан")
+   if not StringRegExp($full_file_name, ".*\." & $capture_image_format) then $full_file_name = $full_file_name & "." & $capture_image_format
+   _ScreenCapture_Capture($full_file_name,$capture_left,$capture_top,$capture_right,$capture_bottom)
+   MsgBox(0,$ToolName, $full_file_name & " сохранен")
 EndFunc
 
 ;отображение/скрытие области выделения

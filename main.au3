@@ -1,5 +1,6 @@
 #include <GUIConstants.au3>
 #include "include/tool.capture.au3"
+#include "include/ps_auto.au3"
 
 ;############################
 #NoTrayIcon

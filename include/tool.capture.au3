@@ -12,7 +12,8 @@ HotKeySet ( "!p", "Capture_tool_GetPixelColor" )
 HotKeySet ( "!w", "Capture_tool_win_size" )
 HotKeySet ( "!a", "Capture_tool_assign_win" )
 HotKeySet ( "!k", "Capture_tool_WinKill" )
-
+HotKeySet ( "!t", "PSAuto_saveTemplate" )
+HotKeySet ( "!d", "PsAuto_setTemplate_dir" )
 
 Global $hSelection_GUI_1
 Global $INI_FILE = @ScriptDir & "\bt.ini" ;файл конфигурации
@@ -24,7 +25,9 @@ Global $CaptureHelp = @CR & "Список горячих клавиш: " _
 			   & @CR & "ALT+p: определение цвета пикселя под указателем мыши" _
 			   & @CR & "ALT+w: определение положения и размеров окна" _
 			   & @CR & "ALT+k: принудительное закрытие окна (рабочего или текущего)" _
-			   & @CR & "ALT+a: назначить активное окно рабочим"
+			   & @CR & "ALT+a: назначить активное окно рабочим" _
+			   & @CR & "Alt + t - сохранить выделение в каталог шаблонов как 'pnm' файл" _
+			   & @CR & "Alt + d - установить каталог шаблонов"
  
 ;скриншот выделенной области экрана и запись его в файл			   
 Func Capture_tool_CaptureImage()
